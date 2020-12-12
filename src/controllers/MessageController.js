@@ -1,4 +1,6 @@
-const Queue = require('bee-queue');
+//const Queue = require('bee-queue');
+
+const Queue = require('bull');
 
 const DojoApi = require('../providers/DojoApi');
 
@@ -20,7 +22,7 @@ class MessageController {
     const options = {
       removeOnSuccess: true,
       redis: {
-        host: 'localhost',
+        host: 'redis',
         port: '6379',
         password: 'kapi',
       },
@@ -28,7 +30,12 @@ class MessageController {
 
     const messageQ = new Queue('message', options);
 
+    const placeOrder = (order) => {
+      return messageQ.createJob(order).save();
+    };
+    console.log(messageQ);
     messageQ.process(async (job, done) => {
+      console.log('Aqui 2');
       const result = await DojoApi.post(reqBody);
       console.log(result);
       done();
