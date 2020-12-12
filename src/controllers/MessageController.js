@@ -30,13 +30,11 @@ class MessageController {
 
     const messageQ = new Queue('message', options);
 
-    const placeOrder = (order) => {
-      return messageQ.createJob(order).save();
-    };
-    console.log(messageQ);
+    messageQ.add(reqBody);
+
     messageQ.process(async (job, done) => {
-      console.log('Aqui 2');
-      const result = await DojoApi.post(reqBody);
+      console.log(job.data);
+      const result = await DojoApi.post(job.data);
       console.log(result);
       done();
     });

@@ -29,7 +29,7 @@ class DojoApi {
       const errorUrl = 'https://dojo-api.gateway.linkapi.com.br/v1/error-stack';
 
       const errorBody = {
-        id: codigo
+        id: reqBody.codigo
       };
 
       const errorMessage = await axios.post(errorUrl, errorBody, {
