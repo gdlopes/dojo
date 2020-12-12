@@ -37,7 +37,7 @@ class DojoApi {
           Authorization: 'Basic MDBiNWFlMTBlYzgyNGVjM2JmNjQyOGEzOGM4ODFhYTQ6NWRlZDc3ZjIwZDM0NDc5MjliYmE2Y2RiYWM1ZDc1YjA='
         }
       });
-
+      
       return errorMessage.data;
     }
   }

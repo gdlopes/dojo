@@ -20,17 +20,17 @@ class MessageController {
     const options = {
       removeOnSuccess: true,
       redis: {
-        host: process.env.DB_HOST,
-        port: process.env.DB_PORT,
-        password: process.env.DB_PASS,
+        host: 'localhost',
+        port: '6379',
+        password: 'kapi',
       },
     };
 
     const messageQ = new Queue('message', options);
 
-    messageQ.process((job, done) => {
-      await DojoApi.post(reqBody);
-
+    messageQ.process(async (job, done) => {
+      const result = await DojoApi.post(reqBody);
+      console.log(result);
       done();
     });
 
